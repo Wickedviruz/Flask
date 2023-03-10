@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    data : {
+                        message : $('#message').val()
+                    },
+                    type : 'POST',
+                    url : '/chat'
+                })
+                .done(function(data) {
+                    $('#chat-window').append('<p>' + data.message + '</p>');
+                    $('#message').val('');
+                });
+            });
+        });
+    </script>
+    <style>
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        #chat-window {
+            height: 400px;
+            overflow: auto;
+            padding: 10px;
+            border: 1px solid #fff;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            background-color: #555;
+            color: #fff;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            background-color: #ccc;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <div id="chat-window"></div>
+    <form>
+        <input type="text" id="message" placeholder="Type your message...">
+        <input type="submit" value="Send">
+    </form>
+</body>
+</html>
